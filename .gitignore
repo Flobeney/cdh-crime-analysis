@@ -4,3 +4,10 @@
 
 # VS Code, IntelliJ
 .vscode/
+
+# Python virtual environments
+**/venv/
+**/.env
+
+# Pycache
+**/__pycache__/
