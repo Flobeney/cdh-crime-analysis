@@ -34,6 +34,12 @@ with open(FILE_MERGED, 'w') as merged:
             # Lire la 1ère ligne pour supprimer l'entête
             file.readline()
             # Lire le reste du fichier
-            content = file.read()
-            # Ecrire dans le fichier
-            merged.write(content)
+            lines = file.readlines()
+            # Parcourir les lignes
+            for line in lines:
+                # Isoler l'id
+                id = line.split(',')[0]
+                # Si l'id n'est pas vide
+                if id != '':
+                    # Ecrire dans le fichier
+                    merged.write(line)
