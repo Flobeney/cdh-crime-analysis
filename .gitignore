@@ -11,3 +11,6 @@
 
 # Pycache
 **/__pycache__/
+
+# Fichiers .csv
+*.csv
