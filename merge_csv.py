@@ -26,13 +26,26 @@ filesname = list_all_files()
 filesname.sort()
 # Ouvrir le fichier de sortie
 with open(FILE_MERGED, 'w') as merged:
+    # Entête
+    header_written = False
     # Parcourir les fichiers
     for filename in filesname:
         print(filename)
         # Ouvrir le fichier
         with open(filename, 'r') as file:
-            # Lire la 1ère ligne pour supprimer l'entête
-            file.readline()
+            # Écrire l'entête une seule fois
+            if not header_written:
+                # Lire l'entête
+                header = file.readline()
+                # Le traiter
+                header = header.lower()
+                header = header.replace(' ', '_')
+                # Écrire l'entête
+                merged.write(header)
+                header_written = True
+            else:
+                # Lire la 1ère ligne pour supprimer l'entête
+                file.readline()
             # Lire le reste du fichier
             lines = file.readlines()
             # Parcourir les lignes
