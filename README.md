@@ -173,6 +173,38 @@ On peut voir que l’import a correctement fonctionné :
 
 ![Untitled](img/Untitled.png)
 
+Cepandant, comme dit précédemment, c'était uniquement les données du mois de janvier 2020 de la force de police de Londres. Pour la suite, il va essayer de faire avec plus de données, c'est-à-dire du début 2020 jusqu'à octobre 2022 (qui sont les données les plus récentes disponible à ce moment).
+
+### Suite : 2020-2022
+
+Pour ce faire, Florent a donc téléchargé les données de tous les commissariats disponibles, de 2020 jusqu'à octobre 2022. Cependant, la structure des .csv téléchargés étaient comme suit :
+
+![Structure des csv](./img/csv_structure.png)
+
+Il y a 1 dossier pour chaque mois, et 1 fichier .csv pour chaque commissariat. Florent a donc créé un script Python (`merge_csv.py`) permettant de fusionner tous les .csv dans un seul fichier csv, afin de pouvoir l'importer dans Hive. 
+
+Ceci fait, il l'a transféré sur la VM Azure et importé tant bien que mal dans HDFS (l'importation n'avançait pas ou plantait à plusieurs reprises). Ensuite, il a pu recréer la table `crimes` (cette fois avec le mois stocké en tant que `string`, parce qu'il y avait des problèmes si le mois était stocké en `date`) et importer les données du .csv dedans. Pour vérifier que l'importation avait réussi, il a effectué un `count` :
+
+![Select count](./img/select_count.png)
+
+On peut voir qu'il y a 13'646'748 de lignes.
+
+### Zeppelin
+
+Ensuite, Florent a créé un notebook Zeppelin pour faire des graphiques avec les données. Le notebook est disponible sous le nom de `crime_analysis.json`.
+
+#### Statistiques pour les crimes de type "bicycle theft"
+
+![Bicycle theft barchart](./img/crime_type_Bicycle_theft_barchart.png)
+
+![Bicycle theft piechart](./img/crime_type_Bicycle_theft_piechart.png)
+
+#### Statistiques pour le commissariat "Avon and Somerset Constabulary"
+
+![Avon barchart](./img/crimes_Avon_barchart.png)
+
+![Avon piechart](./img/crimes_Avon_piechart.png)
+
 ## Solution alternative
 
 Pour pouvoir avoir quelque chose à montrer lors de la présentation et ne pas avoir à faire uniquement une présentation des problèmes rencontrés, David et Florent ont fait des recherches pour savoir si le projet était faisable avec d’autres technologies émergentes. Ces recherches et l’implémentation de cette solution ont été faites en parallèle de l’installation de HDP et de l’essai de faire fonctionner l’exemple Twitter sur la VM Azure. 

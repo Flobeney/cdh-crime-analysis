@@ -1,6 +1,6 @@
 CREATE EXTERNAL TABLE crimes (
     crime_id string,
-    month date,
+    month string,
     reported_by string,
     falls_within string,
     longitude double,
